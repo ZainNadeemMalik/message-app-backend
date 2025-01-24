@@ -2,6 +2,7 @@ const http = require('http')
 const { Server } = require('socket.io')
 const prisma = require('./prisma/prismaConfig')
 const app = require('./app')
+require('dotenv').config()
 
 const server = http.createServer(app)
 const io = new Server(server, {
@@ -70,4 +71,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3000, () => console.log('I am alive father'))
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => console.log('I am alive father'))

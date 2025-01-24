@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
   methods: ['GET, POST'],
   credentials: true
 }))
@@ -31,7 +31,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
     error: {
-      message: err.message || 'Internal Server Error',
+      message: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
     },
   });
 });

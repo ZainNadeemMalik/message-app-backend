@@ -3,8 +3,6 @@ const { validationResult } = require('express-validator')
 const prisma = require('../prisma/prismaConfig')
 const { generateAccessToken, generateRefreshToken } = require('../utils/tokens')
 
-
-
 const signUp = async (req, res) => {
   const { username, password } = req.body
 
@@ -28,8 +26,6 @@ const signUp = async (req, res) => {
     console.log('Error from signup controller', error)
     res.status(500).json({ error: error.message, message: 'Internal server error occured while signing up' })
   }
-
-
 }
 
 module.exports = { signUp }

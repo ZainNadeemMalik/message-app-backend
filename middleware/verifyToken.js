@@ -8,8 +8,7 @@ const verifyAccessToken = (req, res, next) => {
 
   if (!bearerToken) return res.status(401).json({ message: 'Token is missing. User in not logged in.' })
 
-  // replace secretkey with a env
-  jwt.verify(bearerToken, 'accessTokenSecretKey', (err, user) => {
+  jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(401).json({ message: 'Invalid or expired token. Please log in again' });
     req.user = user
     next()
@@ -26,8 +25,7 @@ const verifyRefreshToken = (req, res, next) => {
 
   if (!bearerToken) return res.status(401).json({ message: 'Token is missing. User in not logged in.' })
 
-  // replace secretkey with a env
-  jwt.verify(bearerToken, 'refreshTokenSecretKey', (err, user) => {
+  jwt.verify(bearerToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(401).json({ message: 'Invalid or expired token. Please log in again' });
     req.user = user
     next()
